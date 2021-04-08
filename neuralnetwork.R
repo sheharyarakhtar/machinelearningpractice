@@ -28,14 +28,13 @@ predicted_strength <- model_result$net.result
 cor(predicted_strength, test$strength)
 
 #Try model training with 5 hidden nodes
-
+set.seed(5)
 start.time <- Sys.time()
 concrete_model2 <- neuralnet(strength ~ cement + slag +
                                ash + water + superplastic +
                                coarseagg + fineagg + age,
                              data = train,
-                             startweights = runif(8),
-                             hidden = 5)
+                             hidden = c(3,2))
 total.time <- Sys.time() - start.time
 total.time
 
@@ -45,4 +44,3 @@ plot(concrete_model2)
 model_result2 <- compute(concrete_model2, test[1:8])
 predicted_strength2 <- model_result2$net.result
 cor(predicted_strength2, test$strength)
-
